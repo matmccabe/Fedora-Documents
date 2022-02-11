@@ -16,9 +16,9 @@ Use the following procedure to permanently change SELinux mode to permissive. Wh
 
 . Open the `/etc/selinux/config` file in a text editor of your choice, for example:
 
----
+----
 # vi /etc/selinux/config
----
+----
 
 . Configure the `SELINUX=permissive` option:
 [subs="quotes"]
