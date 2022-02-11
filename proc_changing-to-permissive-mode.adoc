@@ -41,3 +41,81 @@ SELINUXTYPE=targeted
 ----
 # *reboot*
 ----
+====
+
+// Module included in the following assemblies:
+//
+// changing-selinux-states-and-modes.adoc
+
+[#{context}-changing-to-enforcing-mode]
+= Changing to enforcing mode
+
+Use the following procedure to switch SELinux to enforcing mode. When SELinux is running in enforcing mode, it enforces the SELinux policy and denies access based on SELinux policy rules. In RHEL, enforcing mode is enabled by default when the system was initially installed with SELinux.
+
+.Prerequisites
+
+* The `selinux-policy-targeted`, `libselinux-utils`, and `policycoreutils` packages are installed on your system. 
+
+* The `selinux=0` or `enforcing=0` kernel parameters are not used.
+
+.Procedure
+
+. Open the `/etc/selinux/config` file in a text editor of your choice, for example:
+
+----
+# vi /etc/selinux/config
+----
+
+. Configure the `SELINUX=enforcing` option:
+
+[subs="quotes"]
+----
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#       enforcing - SELinux security policy is enforced.
+#       permissive - SELinux prints warnings instead of enforcing.
+#       disabled - No SELinux policy is loaded.
+SELINUX=*enforcing*
+# SELINUXTYPE= can take one of these two values:
+#       targeted - Targeted processes are protected,
+#       mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+----
+
+. Save the change, and restart the system:
++
+[subs="quotes"]
+----
+# reboot
+----
++
+On the next boot, SELinux relabels all the files and directories within the system and adds SELinux context for files and directories that were created when SELinux was disabled.
+
+.Verification
+
+. After the system restarts, confirm that the `getenforce` command returns `Enforcing`:
+
+----
+$ getenforce
+Enforcing
+----
+
+[NOTE]
+====
+After changing to enforcing mode, SELinux may deny some actions because of incorrect or missing SELinux policy rules. To view what actions SELinux denies, enter the following command as root:
+[subs="quotes"]
+----
+# ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts today
+----
+Alternatively, with the [package]`setroubleshoot-server` package installed, enter:
+[subs="quotes"]
+----
+# grep "SELinux is preventing" /var/log/messages
+----
+If SELinux is active and the Audit daemon (auditd) is not running on your system, then search for certain SELinux messages in the output of the dmesg command:
+----
+# dmesg | grep -i -e type=1300 -e type=1400
+----
+
+If SELinux denies some actions, see the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/troubleshooting-problems-related-to-selinux_using-selinux[Troubleshooting problems related to SELinux] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index[RHEL 8 Using SELinux] document for information about troubleshooting.
+====
