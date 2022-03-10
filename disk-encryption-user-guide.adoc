@@ -1,0 +1,27 @@
+= Disk Encryption User Guide
+
+----
+. What is block device encryption?
+. Encrypting block devices using dm-crypt/LUKS
+.. How will I access the encryptiied devices after installation? (System startup)
+.. Choosing a good passphrase
+. Creating encrypted block devices in Anaconda
+.. What kinds of block devices can be encrypted?
+.. Limitation of Anaconda's block device with random data before encrypting
+... Filling the device with random data before encrypting
+... Using a key comprised of randomly generated data to access encrypted devices
+. Creating encrypted block devices on the installed system after installation
+.. Create the block devices
+.. Optional: Fill the device with random data
+.. Format the device as a dm-crypt/LUKS encrypted device
+.. Create filesystems on the mapped device, or continue to build complex storage structures using the mapped device
+.. Add the mapping information to /etc/crypttab
+.. Add an entry to /etc/fstab
+. Common post-installation tasks
+.. Backup LUKS headers
+.. Set a randomly generated key as an additional way to access an encrypted block device
+... Generate a key
+... Add the key to an available keyslot on the encrypted device
+.. Add a new passphrase to an existing device
+.. Remove a passphrase or key from a device 
+----
