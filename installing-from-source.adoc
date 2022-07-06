@@ -1,0 +1,20 @@
+= Installing software from source
+Mathew McCabe matmccabe@gmail.com
+v2.0, 07/05/2022
+
+This document is a guide for installing the Fedora software from source. 
+
+Several methods are available for installing the Fedora software.
+The reccomended methods include:
+* fedora-docs **RADME**
+* fedora-docs **Install**
+
+TIP: Often for a given program or package, there are many different ways to compelte installation. Make sure to read documentations to determine the easiest way possible to do so. I.e. often you can find a package repository which can be added to your package manager `_dnf_` , `_yum_ `, etc and then installed using the package manager.
+
+If you wish to install from source, please reference `_What` is `installing from source_`.
+
+==Installing from source
+
+Installing from source refers to the installation method which one obtains the source code of a program often _*not*_ acompanied by it's necessary dependencies, and compiles them locally ont their machine and install the the compiled binary code.            
+
+But what is your task in this procces? Well, after obtaining the source code, I.e. some _C++_ files, you need to run a _script_ which compiles and links the source code into an excecutable, and then another script which properly installs the previously made excecutable.
