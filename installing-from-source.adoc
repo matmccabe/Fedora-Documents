@@ -18,3 +18,62 @@ If you wish to install from source, please reference `_What` is `installing from
 Installing from source refers to the installation method which one obtains the source code of a program often _*not*_ acompanied by it's necessary dependencies, and compiles them locally ont their machine and install the the compiled binary code.            
 
 But what is your task in this procces? Well, after obtaining the source code, I.e. some _C++_ files, you need to run a _script_ which compiles and links the source code into an excecutable, and then another script which properly installs the previously made excecutable.
+
+== Terminology 
+
+Helpful information to know when installing from source
+
+ 
+Some important terms that we will use include:
+ 
+* *Source*: Refers to the source code of the program being installed. 
+* *Build*: Involves invoking a build system which runs scripts to compile the source code. 
+* *Dependency*: Other software required by a particular program or package to function correctly.
+* *Make tool*: The _make tool_ is a standard POSIX tool available on link:https://wikipedia.org/wiki/List_of_operating_systems#Unix_or_Unix-like[UNIX based systems] which reads the `makefile` and runs appropriate bash scripts to _build_ the software.
+* *`MAKEFILE` file*: This file is read by the _make tool_. 
+* *Build system*: Refers to the particular collection of build tools a software is shipped with. A notable example which we will be examining in this document includes the link:https://wikipedia.org/wiki/GNU_Build_System#GNU_Automake[GNU Build System].
+* *`CONFIGURE` file*: This file is responsible to ensure compatability with your machine. It checks for any dependency and generates an appropriate `makefile`.
+* *Package*: Here we use _package_ to identify a set of utilities and software which combine to form one uniform program installed through a _package manager_. Most programs and software you use are indeed a package, but we shall use _software_ and _program_ interchangebly in the contex of this document. Note that outside our contex a package and program are *not* the same. 
+* *Build tool*:  We shall refer to various build systems which run automated scripts to compile, build, and install or deploy software as _Build tools_. Some notable names include: 
+** link:https://cmake.org/[*CMake*]: An open-source, cross-platform family of tools designed to build, test and package software.
+** link:https://www.gnu.org/software/make/[*GNU Make*]: A tool which controls the generation of executables and other non-source files of a program from the program's source files.
+ 
+
+== Before installing
+
+=== Step 1: Install a build tool
+
+This step can be avoided if you have a build tol and compiler installed. You will need the tools to build and complete the source code. 
+
+If you do not currently have abuild too, please see: https://en.wikipedia.org/wiki/GNU_Autotools#GNU_Automake[GNU Autotools].
+
+Install t most common modern tools:
+
+[source, bash]
+....
+$ sudo dnf groupinstall "Development Tools"
+....
+
+Install common legacy tools: 
+[source, bash]
+....
+$ sudo dnf groupinstall "C Development Tools"
+....
+
+Note: _C Development Tools_ is not necessarily legacy and many *required* tools for modern development can be found in it. Also, often prgorams require some specific _devel_ utilities which are mostly available through the standard package manager, `dnf`.
+
+=== Step 2: Install dependancies
+
+Installing from source will require dependancies which can be locted in the files README
+
+=== Step 3: Check for updates
+
+It is often the case where newer software have compatability issues with older software, such as when link:https://docs.python.org/3/[python3] dependant software get installed on a machine running link:https://docs.python.org/2/[python2]. Therefore it is recommended to check for updates on your machine before installing new software either through a GUI utility depending on your link:https://spins.fedoraproject.org/[spin] or a bash script using the `dnf` command:
+ 
+TIP: If you have a similar issue such as the `python` compatability issue mentioned above, you might have to separately install link:https://docs.python.org/3/[python3] since by definition python 2 and 3 are considered two separate packages.
+ 
+[source, bash]
+    $ sudo dnf update --refresh
+ 
+IMPORTANT: When installing graphics drivers such as link:https://www.nvidia.com/object/unix.html[Nvidia LLD], link:https://www.nvidia.com/object/unix.html[Nvidia GRD], or link:https://www.amd.com/en/support/kb/release-notes/rn-prorad-lin-18-20[AMD Radeon for Linux] *ALWAYS* check for updates, the linux kernel is a priority and installing a graphics driver on an old kernel is highly deprecated.
+ 
